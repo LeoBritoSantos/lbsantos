@@ -1,0 +1,74 @@
+<!-- <apex:page showHeader="true" sidebar="true">
+<html>
+<body>
+
+
+	<script type='text/javascript' src='https://c.la2w2.salesforceliveagent.com/content/g/js/33.0/deployment.js'></script>
+	<script type='text/javascript'>
+		liveagent.init('https://d.la2w2.salesforceliveagent.com/chat', '572j0000000Gx0m', '00Dj0000001u6Na');
+	</script>	
+
+		<div id="btnLiveAgent" 
+		 style="display: none; position: fixed; border: 2px solid darkblue; border-radius: 5px;
+				background-color: lightblue; height: 100px; width: 200px;"></div>
+	<div style="cursor: pointer; padding: 5px; right: 0px;
+				position: absolute; color: darkred; font-weight: bold;"
+		 onclick="liveagent.rejectChat('572j0000000Gx0m')">X</div>
+	<div style="cursor: pointer; top: 42px; left: 65px; position: absolute;
+				font-weight: bold; font-size: 16px;"
+		 onclick="liveagent.startChat('572j0000000Gx0m')">Start Chat</div>
+	</body>
+</html>
+</apex:page>
+
+
+ -->
+
+
+ <apex:page >
+	<apex:variable var="deploymentId" value="572j0000000Gx0m" />
+	<apex:variable var="orgId" value="00Dj0000001u6Na" />
+	<apex:variable var="buttonId" value="573j0000000GzEq" />
+
+
+   <a id="aOnLine" href="javascript://Chat" style="display: none;" onclick="liveagent.startChat('{!buttonId}')">   		
+   		<img src="https://na16.salesforce.com/resource/1432661180000/LiveAgentOnLine" alt="Chat online" / >
+   </a>
+   <div id="aOffLine" style="display: none;">   		
+   		<img src="https://na16.salesforce.com/resource/1432661203000/LiveAgentOffLine" alt="Chat offLine" / >
+   </div>
+   <script type="text/javascript">
+	   if (!window._laq) { window._laq = []; }
+		   window._laq.push(function(){
+			   liveagent.showWhenOnline('{!buttonId}', document.getElementById('aOnLine'));
+			   liveagent.showWhenOffline('{!buttonId}', document.getElementById('aOffLine'));
+	   });
+   </script>
+
+	<!-- Deployment code -->
+	<script type='text/javascript' src='https://c.la2w2.salesforceliveagent.com/content/g/js/33.0/deployment.js'></script>
+
+	<script type='text/javascript'>
+		  // An auto query that searches contacts whose email field exactly matches "john@acme.com"
+		  liveagent.addCustomDetail('Contact E-mail', 'leonardo.santos@resource.com.br');
+		  liveagent.findOrCreate('Contact').map('Email','Contact E-mail',true,true,false);
+		  // Conducts a Knowledge One search on the provided value; in this case,
+		  // searches Knowledge One articles for the term "Problems with my iPhone"
+		  liveagent.addCustomDetail('Case Subject', 'Problem with my iPhone').doKnowledgeSearch();
+		  // An auto query that searches contacts whose first name field  matches "John Doe"
+		  liveagent.addCustomDetail('Contact Name', 'Leonardo Brito');
+		  liveagent.findOrCreate('Contact').map('FirstName','Contact Name',true,false,false);
+		  // Saves the custom detail to a custom field on LiveChatTranscript at the end of a chat
+		  liveagent.addCustomDetail('Company', 'Torresmo SA').saveToTranscript('Company__c');
+		  // Overrides the display name of the visitor in the agent console when engaged in a chat
+		  liveagent.setName('Leonardo Brito');
+		  // Sets the width of the chat window to 500px
+		  liveagent.setChatWindowWidth(500);
+		  // Sets the height of the chat window to 500px
+		  liveagent.setChatWindowHeight(500);
+
+		  liveagent.init('https://d.la2w2.salesforceliveagent.com/chat', '{!deploymentId}', '{!orgId}');
+
+	</script>
+</apex:page>
+

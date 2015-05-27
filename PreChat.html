@@ -1,0 +1,33 @@
+<html>
+	<body>
+		<script type="text/javascript">
+
+		</script>
+
+		<!-- Deployment code -->
+		<script type='text/javascript' src='https://c.la2w2.salesforceliveagent.com/content/g/js/33.0/deployment.js'></script>
+
+		<script type='text/javascript'>
+		    (function(){
+		        function handlePageLoad(){
+		            var endpointMatcher = new RegExp("[\\?\\&]endpoint=([^&#]*)");
+		            document.getElementById('prechatForm').setAttribute('action',
+		            decodeURIComponent(endpointMatcher.exec(document.location.search)[1]));
+		        } 
+		        if (window.addEventListener){
+		            window.addEventListener('load', handlePageLoad, false);
+		        } 
+		        else{ 
+		            window.attachEvent('onload', handlePageLoad, false);
+		        }
+		    })();
+
+		   if (!window._laq) { window._laq = []; }
+			   window._laq.push(function(){
+				   liveagent.showWhenOnline('573j0000000GzEq', document.getElementById('liveagent_button_online_573j0000000GzEq'));
+				   liveagent.showWhenOffline('573j0000000GzEq', document.getElementById('liveagent_button_offline_573j0000000GzEq'));
+		   });
+		</script>
+		
+	</body>
+</html>

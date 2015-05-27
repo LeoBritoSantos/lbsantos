@@ -1,0 +1,188 @@
+<apex:page controller="PreChatController">
+
+	<apex:variable var="deploymentId" value="572j0000000Gx0m" />
+	<apex:variable var="orgId" value="00Dj0000001u6Na" />
+	<apex:variable var="buttonId" value="573j0000000GzEq" />
+
+	<!-- This script takes the endpoint URL parameter passed from the deployment page and makes it the action for the form -->
+	<script type='text/javascript' src='https://c.la2w2.salesforceliveagent.com/content/g/js/33.0/deployment.js'></script>
+	<script type='text/javascript'>
+	    liveagent.init('https://d.la2w2.salesforceliveagent.com/chat', '{!deploymentId}', '{!orgId}');
+	</script>
+
+	<script type="text/javascript">
+	    (function() 
+	    {
+	        function handlePageLoad()
+	        {
+	            var endpointMatcher = new RegExp("[\\?\\&]endpoint=([^&#]*)");
+	            document.getElementById('prechatForm').setAttribute('action', decodeURIComponent(endpointMatcher.exec(document.location.search)[1]));
+	        } 
+	        if (window.addEventListener) 
+	        {
+	            window.addEventListener('load', handlePageLoad, false);
+	            //alert('>>>> Entrou no load');
+	        } 
+	        else 
+	        { 
+	            window.attachEvent('onload', handlePageLoad, false);
+	            //alert('>>>> Entrou no onload');
+	        }
+	    })();
+
+	    if (!window._laq) { window._laq = []; }
+
+	    window._laq.push(function()
+	    {
+	        liveagent.showWhenOnline('{!buttonId}', document.getElementById('aOnLine'));
+	        liveagent.showWhenOffline('{!buttonId}', document.getElementById('aOffLine'));
+	    });	    
+
+	    function getLeadOrContact()
+	    {
+	        console.log('Getting lead or contact');
+	        var emailAddr = document.getElementById('email').value.trim();
+	        var fname = document.getElementById('name').value.trim();
+	        var phone = document.getElementById('phone').value.trim();
+
+	        try
+	        {
+	            Visualforce.remoting.Manager.invokeAction(
+	                '{!$RemoteAction.PreChatController.findLeadOrContactByEmail}', 
+	                fname,
+	                emailAddr,
+	                phone, 
+	                function(result, event)
+	                {
+	                    if (event.status) 
+	                    {
+	                        console.log(result);
+	                        if(result.Id.substring(0,3) === '003')
+	                        {
+	                            document.getElementById('contactid').value = result.Id;
+	                        }
+	                        else if(result.Id.substring(0,3) === '00Q')
+	                        {
+	                            document.getElementById('leadid').value = result.Id;
+	                        }
+	                        document.forms["prechatForm"].submit();
+
+	                        return true;
+	                    } 
+	                }, 
+	                {escape: false}
+	            );
+	        }
+	        catch(ex)
+	        {
+	            alert(ex.message);
+	            console.log(ex);
+	            return false;
+	        }
+	        return false;
+	    }   
+
+	</script>
+	<style>
+	body
+	{
+	    background-color:#f4f4f4;
+	}
+	#chatFormDiv
+	{
+	    width:200px;
+	    text-align:center;
+	    padding:5px;
+	}
+	#chatHeader
+	{
+	    color:#6d6d6d;
+	    font-size:18px;
+	    font-weight:bold;
+	}
+	label
+	{
+	    width:150px;
+	    font-weight:bold;
+	}
+	input[type=text], textarea
+	{
+	    width:200px;
+	    background: #f3f3f3; /* Old browsers */
+	    background: -moz-linear-gradient(top, #f3f3f3 0%, #ffffff 100%); /* FF3.6+ */
+	    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f3f3f3), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+	    background: -webkit-linear-gradient(top, #f3f3f3 0%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+	    background: -o-linear-gradient(top, #f3f3f3 0%,#ffffff 100%); /* Opera 11.10+ */
+	    background: -ms-linear-gradient(top, #f3f3f3 0%,#ffffff 100%); /* IE10+ */
+	    background: linear-gradient(to bottom, #f3f3f3 0%,#ffffff 100%); /* W3C */
+	    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f3f3f3', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */    
+	    border-color: #dedede;
+	    border-top-color: #d3d3d3;
+	}
+	textarea
+	{
+	    height:140px;
+	}
+	.chatStatusDiv
+	{
+	    display:none;
+	}
+	</style>
+
+	<div id="chatFormDiv">
+	    <span id="chatHeader">Chat</span><br/>
+	    <hr />
+
+<!-- 	    <form method='post' 
+	    	  id='prechatForm' 
+	    	  onsubmit='return false;' 
+	    	  action='https://15af.la7cs.salesforceliveagent.com/content/s/chat?language=en_US#deployment_id={!deploymentId}&org_id={!orgId}&button_id={!buttonId}'> -->
+
+	    <form method='post' 
+	    	  id='prechatForm' 
+	    	  onsubmit='return false;' 
+	    	  action='https://mxdz.la2w2.salesforceliveagent.com/content/s/chat?language=pt_BR#deployment_id=572j0000000Gx0m&org_id=00Dj0000001u6Na&button_id=573j0000000GzEq&session_id=0658ecbc-88df-4377-bd3f-50c2081b1258'>
+
+	    <input type='text' name='liveagent.prechat.name' id='name' placeholder="Your Name" required="required"/><br />
+
+	    <input type='text' name='liveagent.prechat:Email' id='email' placeholder="Email Address" required="required" /><br />
+
+	    <input type='text' name='liveagent.prechat:Phone' id='phone' placeholder="Phone" required="required" /><br />
+
+	    <textarea name='liveagent.prechat:Body' id='body' placeholder="Message" required="required" ></textarea><br />
+
+	    <input name="liveagent.prechat.buttons" value="{!buttonId}" type="hidden" /><br />
+
+	    <!-- Creates an auto-query for a matching Contact record’s Email field based on the
+	    value of the liveagent.prechat:Email field -->
+	    <input type="hidden" name="liveagent.prechat.query:Email" value="Contact,Contact.Email" />
+
+	    <!--- populate fields ---->
+	    <input type="hidden" name="liveagent.prechat.query:Email" value="Lead,Lead.Email" />
+	    <input type="hidden" name="liveagent.prechat.save:Email"  value="Provided_Email__c" />
+	    <input type="hidden" name="liveagent.prechat.save:name"   value="Provided_Name__c" />
+	    <input type='hidden' name='liveagent.prechat:ContactId'   value='' id='contactid'/>  
+	    <input type="hidden" name="liveagent.prechat.save:ContactId" value="Contact" />
+
+	    <input type='hidden' name='liveagent.prechat:LeadId' id='leadid' />  
+	    <input type="hidden" name="liveagent.prechat.save:LeadId" value="Lead" />
+
+	   <a id="aOnLine" href="javascript://Chat" style="display: none;" onclick="liveagent.startChat({!buttonId})">
+<!-- 	   		<img src="https://na16.salesforce.com/resource/1432661180000/LiveAgentOnLine" 
+	   		     alt="Chat online" 
+	   		     id='prechat_submit'
+	   		     onclick="getLeadOrContact()"/> -->
+
+	   		<img src="https://na16.salesforce.com/resource/1432661180000/LiveAgentOnLine" 
+	   		     alt="Chat online" 
+	   		     id='prechat_submit'
+	   		     onclick='getLeadOrContact()' />	   		     
+	   </a>
+	   <div id="aOffLine" style="display: none;">
+	   		<img src="https://na16.salesforce.com/resource/1432661203000/LiveAgentOffLine" 
+	   		     alt="Chat offLine" / >
+	   </div>
+
+	    </form>
+	</div>
+</apex:page>

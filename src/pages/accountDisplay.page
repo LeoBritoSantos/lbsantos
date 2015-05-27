@@ -1,0 +1,22 @@
+<apex:page standardController="Account">
+    <h1>Olá {! $User.FirstName} {! $User.LastName}</h1>
+    <p>You are viewing the {! Account.Name} account.</p>
+    <p>Here's the owner of this account: {! account.owner.Name}</p>
+
+    <!-- <apex:detail /> -->
+
+    <!-- <apex:relatedList list="Cases" /> -->
+
+    <apex:pageBlock title="Custom Output">
+    	<apex:pageBlockSection title="Custom Section title">
+    		<apex:outputField value="{!account.Name}" />
+    		<apex:outputField value="{!account.Owner.Name}" />
+    	</apex:pageBlockSection>
+    </apex:pageBlock>
+
+    <apex:pageBlock title="My Account Contacts">
+    	<apex:pageBlockTable value="{!account.Contacts}" var="item">
+    		<apex:column value="{! item.Name}" />
+    	</apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:page>
